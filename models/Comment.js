@@ -6,16 +6,18 @@ const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'comments'
   },
-  body: {
+  text: {
     type: String,
     required: true
   },
   name: {
     type: String
   },
+  childComments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
   avatar: {
     type: String
   },
+
   likes: [
     {
       user: {
