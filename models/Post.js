@@ -31,4 +31,9 @@ const PostSchema = new Schema({
   }
 });
 
+PostSchema.pre('remove', function(next) {
+    Comment.remove({ parent_id: this._id }).exec();
+    next();
+});
+
 module.exports = Post = mongoose.model('posts', PostSchema);

@@ -14,14 +14,17 @@ mongoose
   .catch(err => console.log(err));
 
 // parse body of post requests
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // abstract users and posts api into separate files
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
+const comments = require('./routes/api/comments');
 app.use('/api/users', users);
 app.use('/api/posts', posts);
+app.use('/api/comments', comments);
 
 // passport jwt authentication
 const passport = require('passport');

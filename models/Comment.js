@@ -17,7 +17,6 @@ const CommentSchema = new Schema({
   avatar: {
     type: String
   },
-
   likes: [
     {
       user: {
