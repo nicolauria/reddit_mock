@@ -1,8 +1,40 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { logoutUser } from '../../util/session_api_util';
+import { connect } from 'react-redux';
 
 class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
+  logout() {
+    this.props.logoutUser();
+    this.props.history.push('/login');
+  }
+
   render() {
+    let dashboardNav = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/register">Sign Up</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/login">Login</Link>
+        </li>
+      </ul>
+    )
+    if (this.props.auth.user.id) {
+      dashboardNav = (
+        <ul className="navbar-nav ml-auto">
+          <li className="logout" onClick={this.logout}>
+            Logout
+          </li>
+        </ul>
+      )
+    }
+
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
@@ -13,12 +45,7 @@ class NavBar extends React.Component {
 
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">Sign Up</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
-              </li>
+              {dashboardNav}
             </ul>
           </div>
         </div>
@@ -27,4 +54,12 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  logoutUser: () => dispatch(logoutUser())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar));

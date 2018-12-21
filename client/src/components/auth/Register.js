@@ -19,6 +19,10 @@ class Register extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.user.id) {
+      this.props.history.push('/dashboard');
+    }
+
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -36,9 +40,6 @@ class Register extends React.Component {
       password: this.state.password,
       password2: this.state.password2
     }
-    // axios.post('/api/users/register', newUser)
-    //   .then(res => console.log(res.data))
-      // .catch(err => this.setState({errors: err.response.data}));
     this.props.registerUser(newUser);
   }
 
