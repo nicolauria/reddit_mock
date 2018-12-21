@@ -13,6 +13,15 @@ mongoose
   .then(() => console.log('Successfully connected to MongoDB'))
   .catch(err => console.log(err));
 
+// serve static assets if in production
+const path = require('path');
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
+}
+
 // parse body of post requests
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
