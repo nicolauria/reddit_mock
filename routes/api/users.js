@@ -7,10 +7,21 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
 
+// Input validation
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
+
 // @route   POST api/users/register
 // @desc    Register a user
 // @access  Public
 router.post('/register', (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors)
+  }
+
   User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
@@ -31,8 +42,15 @@ router.post('/register', (req, res) => {
             if (err) throw err;
             newUser.password = hash;
             newUser.save()
-              .then(user => res.json(user))
-              .catch(err => console.log(err));
+              .then(user => {
+              const payload = {id: user.id, name: user.name, avatar: user.avatar}
+              jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                res.json({
+                  success: true,
+                  token: 'Bearer ' + token
+                })
+              })
+            })
           })
         })
       }
@@ -43,6 +61,13 @@ router.post('/register', (req, res) => {
 // @desc    Login user
 // @access  Public
 router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors)
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
