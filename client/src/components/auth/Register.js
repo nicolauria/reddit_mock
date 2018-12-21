@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { registerUser } from '../../util/session_api_util';
@@ -19,6 +18,12 @@ class Register extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onChange(e) {
     this.setState({[e.target.name]: e.target.value})
   }
@@ -33,7 +38,7 @@ class Register extends React.Component {
     }
     // axios.post('/api/users/register', newUser)
     //   .then(res => console.log(res.data))
-    //   .catch(err => this.setState({errors: err.response.data}));
+      // .catch(err => this.setState({errors: err.response.data}));
     this.props.registerUser(newUser);
   }
 
@@ -48,7 +53,7 @@ class Register extends React.Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your DevConnector account</p>
+              <p className="lead text-center">Create your Reddit Mock account</p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input type="text"
@@ -105,13 +110,9 @@ class Register extends React.Component {
   }
 }
 
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 
 const mapDispatchToProps = dispatch => ({

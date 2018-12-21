@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../util/session_api_util';
+
 
 class Login extends React.Component {
   constructor() {
@@ -19,11 +22,11 @@ class Login extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const userLogin = {
-      name: this.state.name,
+    const user = {
+      email: this.state.email,
       password: this.state.password
     };
-    console.log(userLogin);
+    this.props.loginUser(user);
   }
 
   render() {
@@ -33,7 +36,7 @@ class Login extends React.Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">Sign in to your DevConnector account</p>
+              <p className="lead text-center">Sign in to your Reddit Mock account</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input type="email"
@@ -62,4 +65,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: user => dispatch(loginUser(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

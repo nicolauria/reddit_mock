@@ -4,7 +4,6 @@ import jwt_decode from 'jwt-decode';
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER'
-export const CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS'
 
 export const setAuthToken = token => {
     if (token) {
@@ -24,12 +23,12 @@ export const registerUser = (userData, history) => dispatch => {
             const decoded = jwt_decode(token);
             dispatch(setCurrentUser(decoded))
         })
-        .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        );
+        .catch(err => dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+);
+
 };
 
 export const loginUser = userData => dispatch => {
@@ -42,12 +41,13 @@ export const loginUser = userData => dispatch => {
             const decoded = jwt_decode(token);
             dispatch(setCurrentUser(decoded))
         })
-        .catch(err =>
+        .catch(err => {
+          console.log('hit');
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
             })
-        );
+        });
 };
 
 export const setCurrentUser = decoded => {
@@ -58,7 +58,7 @@ export const setCurrentUser = decoded => {
 };
 
 export const clearErrors = () => ({
-    type: CLEAR_SESSION_ERRORS
+    type: CLEAR_ERRORS
 })
 
 
