@@ -34,7 +34,7 @@ class CommentTwo extends React.Component {
     let comments = null;
     if (this.props.comments && this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
-        return <Comment comment={comment} getComments={this.props.getComments} />
+        return <Comment comment={comment} />
       })
     }
 
@@ -77,7 +77,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // getComments: parentId => dispatch(getComments(parentId)),
+  getComments: parentId => dispatch(getComments(parentId)),
   likeComment: commentId => dispatch(likeComment(commentId))
 });
 
