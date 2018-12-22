@@ -5,6 +5,8 @@ import { removeComment } from '../actions/commentActions';
 class RemoveComment extends React.Component {
   removeComment() {
     this.props.removeComment(this.props.comment._id);
+    const removeDiv = document.getElementById(`remove-div-${this.props.comment._id}`);
+    removeDiv.style.display = 'none';
   }
 
   closeRemove() {
