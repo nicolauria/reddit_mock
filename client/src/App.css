@@ -123,7 +123,8 @@ img {
   color: blue;
 }
 
-.edit-comment {
+.edit-comment,
+.remove-comment {
   text-decoration: underline;
   color: blue;
   margin-left: 30px;
@@ -131,8 +132,24 @@ img {
   cursor: pointer;
 }
 
+.remove-comment {
+  margin-left: 10px;
+}
+
+.remove-comment-div {
+  display: flex;
+}
+
+.remove-comment-confirm {
+  margin-left: 10px;
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+
 .reply-div,
-.edit-div {
+.edit-div,
+.remove-div {
   display: none;
 }
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 export const getComments = parentId => dispatch => {
   axios.get(`/api/comments/${parentId}`)
@@ -48,3 +49,14 @@ const receiveComment = (parentId, comment) => {
     parentId: parentId
   }
 }
+
+export const removeComment = commentId => dispatch => {
+  axios.delete(`/api/comments/${commentId}`).then(comment => {
+    dispatch(deleteComment(comment.data))
+  })
+};
+
+const deleteComment = comment => ({
+  type: REMOVE_COMMENT,
+  payload: comment
+});

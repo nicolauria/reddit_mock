@@ -55,6 +55,15 @@ router.put('/:commentId', passport.authenticate('jwt', { session: false }), (req
     comment.text = req.body.text;
     comment.save().then(comment => res.json(comment));
   })
+});
+
+// @route   DELETE api/comments/:commentId
+// @desc    Delete a comment
+// @access  Private
+router.delete('/:commentId', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Comment.findByIdAndRemove(req.params.commentId).then(comment => {
+    res.json(comment);
+  })
 })
 
 module.exports = router;

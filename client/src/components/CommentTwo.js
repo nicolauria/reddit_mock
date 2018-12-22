@@ -4,6 +4,7 @@ import { getComments, likeComment } from '../actions/commentActions';
 import Reply from './Reply';
 import EditComment from './EditComment';
 import Comment from './Comment';
+import RemoveComment from './RemoveComment';
 
 class CommentTwo extends React.Component {
   constructor(props) {
@@ -25,7 +26,6 @@ class CommentTwo extends React.Component {
   }
 
   toggleReply() {
-    console.log(this.props.comment._id);
     const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
     if (replyDiv.style.display === 'block') {
       replyDiv.style.display = 'none';
@@ -37,7 +37,6 @@ class CommentTwo extends React.Component {
   }
 
   toggleEdit() {
-    console.log(this.props.comment._id);
     const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
     if (editDiv.style.display === 'block') {
       editDiv.style.display = 'none';
@@ -48,9 +47,22 @@ class CommentTwo extends React.Component {
     }
   }
 
+  toggleRemove() {
+    const removeDiv = document.getElementById(`remove-div-${this.props.comment._id}`);
+    if (removeDiv.style.display === 'block') {
+      removeDiv.style.display = 'none';
+    } else {
+      removeDiv.style.display = 'block';
+      const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
+      if (replyDiv.style.display = 'block') replyDiv.style.display = 'none';
+      const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
+      if (editDiv.style.display = 'block') editDiv.style.display = 'none';
+    }
+  }
+
   render() {
     let comments = null;
-    if (this.props.comments && this.props.comments[this.props.comment._id]) {
+    if (this.props.comments.length > 0 && this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
         return <Comment comment={comment} />
       })
@@ -62,10 +74,10 @@ class CommentTwo extends React.Component {
     }
 
     let editComment = null;
-    // let remove = null;
+    let removeComment = null;
     if (this.props.auth.user.id === this.props.comment.user) {
       editComment = <span className="edit-comment" onClick={this.toggleEdit.bind(this)}>edit</span>;
-      // remove = <span onClick={this.props.removeComment}>remove</span>;
+      removeComment = <span className="remove-comment" onClick={this.toggleRemove.bind(this)}>remove</span>;
     }
 
     return (
@@ -86,10 +98,11 @@ class CommentTwo extends React.Component {
               src={require('./like-icon.png')}
               onClick={this.likeComment.bind(this)} />
             <span onClick={this.toggleReply} className="reply">reply</span>
-            {editComment}
+            {editComment}{removeComment}
           </div>
           <span className="reply-div" id={`reply-div-${this.props.comment._id}`}>{reply}</span>
           <span className="edit-div" id={`edit-div-${this.props.comment._id}`}>{<EditComment comment={this.props.comment}/>}</span>
+          <span className="remove-div" id={`remove-div-${this.props.comment._id}`}>{<RemoveComment comment={this.props.comment}/>}</span>
         </div>
         <br />
         {comments}
