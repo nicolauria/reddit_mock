@@ -42,3 +42,61 @@ img {
   cursor: pointer;
   color: white;
 }
+
+#root {
+  margin: 0 auto;
+}
+
+.general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.posts-container {
+  width: 1000px;
+}
+
+.post-content {
+  display: flex;
+}
+
+.post-body {
+  margin-left: 15px;
+}
+
+.comments, .comment {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.like-image {
+  width: 23px;
+  height: 23px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.comment-author {
+  font-weight: 700;
+}
+
+.rounded-circle {
+  width: 50px;
+  height: 50px;
+}
+
+.post-author {
+  font-weight: 700;
+  margin-left: 15px;
+}
+
+.reply {
+  margin-left: 15px;
+}
+
+.create-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

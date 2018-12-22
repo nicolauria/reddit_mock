@@ -28,6 +28,10 @@ const PostSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  open: {
+    type: Boolean,
+    default: true
   }
 });
 
