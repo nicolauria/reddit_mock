@@ -10,17 +10,13 @@ class Comment extends React.Component {
   }
 
   componentDidMount() {
-    // if (this.props.getComments) {
-    //   this.props.getComments(this.props.comment._id);
-    // }
     this.props.getComments(this.props.comment._id);
   }
 
   likeComment() {
-    // if (this.props.likeComment) {
-    //   this.props.likeComment(this.props.comment._id);
-    // }
-    this.props.likeComment(this.props.comment._id);
+    if (this.props.likeComment) {
+      this.props.likeComment(this.props.comment._id);
+    }
   }
 
   toggleReply() {
