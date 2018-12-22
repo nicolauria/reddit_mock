@@ -62,10 +62,11 @@ class Comment extends React.Component {
 
   render() {
     let comments = null;
-    if (this.props.comments.length > 0 && this.props.comments[this.props.comment._id]) {
+
+    if (this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
         return <CommentTwo comment={comment} />
-      })
+      });
     }
 
     let reply = null;

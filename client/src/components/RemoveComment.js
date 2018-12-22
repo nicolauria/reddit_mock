@@ -17,7 +17,7 @@ class RemoveComment extends React.Component {
   render() {
     return (
       <div className="remove-comment-div">
-        <p>Are you sure you want to remove this comment?</p>
+        <p className="remove-comment-p">Are you sure you want to remove this comment?</p>
         <span className="remove-comment-confirm" onClick={this.removeComment.bind(this)}>yes</span>
         <span className="remove-comment-confirm" onClick={this.closeRemove.bind(this)}>no</span>
       </div>

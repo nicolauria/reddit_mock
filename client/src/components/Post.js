@@ -11,14 +11,11 @@ class Post extends React.Component {
   }
 
   componentWillMount() {
-    console.log(typeof this.props.post._id)
     this.props.getComments(this.props.post._id);
   }
 
   toggleReply() {
-    console.log('hit');
     const replyDiv = document.getElementById(`reply-div-${this.props.post._id}`);
-    console.log(`reply-div-${this.props.post._id}`);
     if (replyDiv.style.display === 'block') {
       replyDiv.style.display = 'none';
     } else {
