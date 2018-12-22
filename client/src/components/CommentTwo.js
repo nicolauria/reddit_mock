@@ -2,12 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getComments, likeComment } from '../actions/commentActions';
 import Reply from './Reply';
+import EditComment from './EditComment';
 import Comment from './Comment';
 
 class CommentTwo extends React.Component {
   constructor(props) {
     super(props);
     this.toggleReply = this.toggleReply.bind(this);
+    this.state = {
+      text: ''
+    }
   }
 
   componentDidMount() {
@@ -21,12 +25,26 @@ class CommentTwo extends React.Component {
   }
 
   toggleReply() {
+    console.log(this.props.comment._id);
     const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
-    console.log(`reply-div-${this.props.comment._id}`);
     if (replyDiv.style.display === 'block') {
       replyDiv.style.display = 'none';
     } else {
       replyDiv.style.display = 'block';
+      const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
+      if (editDiv.style.display = 'block') editDiv.style.display = 'none';
+    }
+  }
+
+  toggleEdit() {
+    console.log(this.props.comment._id);
+    const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
+    if (editDiv.style.display === 'block') {
+      editDiv.style.display = 'none';
+    } else {
+      editDiv.style.display = 'block';
+      const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
+      if (replyDiv.style.display = 'block') replyDiv.style.display = 'none';
     }
   }
 
@@ -41,6 +59,13 @@ class CommentTwo extends React.Component {
     let reply = null;
     if (this.props.comment.open) {
       reply = <Reply comment={this.props.comment} />
+    }
+
+    let editComment = null;
+    // let remove = null;
+    if (this.props.auth.user.id === this.props.comment.user) {
+      editComment = <span className="edit-comment" onClick={this.toggleEdit.bind(this)}>edit</span>;
+      // remove = <span onClick={this.props.removeComment}>remove</span>;
     }
 
     return (
@@ -61,8 +86,10 @@ class CommentTwo extends React.Component {
               src={require('./like-icon.png')}
               onClick={this.likeComment.bind(this)} />
             <span onClick={this.toggleReply} className="reply">reply</span>
+            {editComment}
           </div>
           <span className="reply-div" id={`reply-div-${this.props.comment._id}`}>{reply}</span>
+          <span className="edit-div" id={`edit-div-${this.props.comment._id}`}>{<EditComment comment={this.props.comment}/>}</span>
         </div>
         <br />
         {comments}
@@ -72,6 +99,7 @@ class CommentTwo extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  auth: state.auth,
   comments: state.comments,
   likes: ownProps.comment.likes
 });

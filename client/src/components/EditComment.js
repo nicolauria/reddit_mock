@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addComment } from '../actions/commentActions';
+import { editComment } from '../actions/commentActions';
 
-class Reply extends React.Component {
+class EditComment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      id: this.props.comment._id
     }
     this.formAction = this.formAction.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -14,10 +15,10 @@ class Reply extends React.Component {
 
   formAction(e) {
     e.preventDefault();
-    this.props.addComment(this.props.comment._id, { text: this.state.text });
+    this.props.editComment({ text: this.state.text, id: this.state.id });
     this.setState({ text: '' });
-    const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
-    replyDiv.style.display = 'none';
+    const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
+    editDiv.style.display = 'none';
   }
 
   onChange(e) {
@@ -26,11 +27,11 @@ class Reply extends React.Component {
 
   render() {
     return (
-      <form className="reply-form" onSubmit={this.formAction}>
+      <form className="edit-comment-form" onSubmit={this.formAction}>
         <input type="text"
                value={this.state.text}
                name="text"
-               placeholder="reply to comment"
+               placeholder="edit comment"
                onChange={this.onChange} />
         <input type="submit"/>
       </form>
@@ -39,7 +40,7 @@ class Reply extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (parentId, comment) => dispatch(addComment(parentId, comment))
+  editComment: comment => dispatch(editComment(comment))
 });
 
-export default connect(null, mapDispatchToProps)(Reply);
+export default connect(null, mapDispatchToProps)(EditComment);

@@ -20,6 +20,9 @@ const CommentSchema = new Schema({
   name: {
     type: String
   },
+  user: {
+    type: String
+  },
   childComments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
   avatar: {
     type: String

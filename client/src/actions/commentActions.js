@@ -24,6 +24,11 @@ export const likeComment = commentId => dispatch => {
     })
 };
 
+export const editComment = comment => dispatch => {
+  axios.put(`/api/comments/${comment.id}`, comment)
+    .then(comment => dispatch(updateComment(comment.data)));
+};
+
 const updateComment = comment => ({
   type: UPDATE_COMMENT,
   payload: comment

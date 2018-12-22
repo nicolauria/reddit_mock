@@ -47,4 +47,14 @@ router.post('/:commentId/like', passport.authenticate('jwt', { session: false })
   .catch(err => console.log(err));
 })
 
+// @route   PUT api/comments/:commentId
+// @desc    Edit a comment
+// @access  Private
+router.put('/:commentId', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Comment.findById(req.params.commentId).then(comment => {
+    comment.text = req.body.text;
+    comment.save().then(comment => res.json(comment));
+  })
+})
+
 module.exports = router;
