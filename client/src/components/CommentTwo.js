@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getComments, likeComment } from '../actions/commentActions';
 import Reply from './Reply';
-import CommentTwo from './CommentTwo';
+import Comment from './Comment';
 
-class Comment extends React.Component {
+class CommentTwo extends React.Component {
   constructor(props) {
     super(props);
     this.toggleReply = this.toggleReply.bind(this);
@@ -34,7 +34,7 @@ class Comment extends React.Component {
     let comments = null;
     if (this.props.comments && this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
-        return <CommentTwo comment={comment} getComments={this.props.getComments} />
+        return <Comment comment={comment} getComments={this.props.getComments} />
       })
     }
 
@@ -81,4 +81,4 @@ const mapDispatchToProps = dispatch => ({
   likeComment: commentId => dispatch(likeComment(commentId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comment)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentTwo)
