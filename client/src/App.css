@@ -61,8 +61,21 @@ img {
   display: flex;
 }
 
+.post-reply-div input[type="text"] {
+  margin-left: 15px;
+}
+
 .post-body {
   margin-left: 15px;
+  margin-bottom: 0px;
+}
+
+.comments {
+  margin-top: 15px;
+}
+
+.new-post input {
+  margin-right: 15px;
 }
 
 .comments, .comment {
@@ -86,6 +99,17 @@ img {
   height: 50px;
 }
 
+.small-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment-section {
+  margin-left: 41px;
+}
+
 .post-author {
   font-weight: 700;
   margin-left: 15px;
@@ -93,10 +117,29 @@ img {
 
 .reply {
   margin-left: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
+
+.reply-div {
+  display: none;
 }
 
 .create-post {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.reply-form {
+  margin-top: 10px;
+}
+
+.reply-form input {
+  margin-right: 10px;
+}
+
+.reply-form input[type="text"] {
+  width: 350px;
 }

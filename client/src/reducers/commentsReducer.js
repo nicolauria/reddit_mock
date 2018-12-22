@@ -8,9 +8,10 @@ export default function(state = {}, action) {
   switch (action.type) {
     case RECEIVE_COMMENTS:
       return {
-        ...state,
-        [action.parentId]: action.payload
-      }
+         ...state,
+         [action.parentId]: action.payload
+       }
+    //return Object.assign({}, state, { [action.parentId]: action.payload });
     case RECEIVE_COMMENT:
       if (state[action.parentId]) {
         return {

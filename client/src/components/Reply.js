@@ -16,6 +16,8 @@ class Reply extends React.Component {
     e.preventDefault();
     this.props.addComment(this.props.comment._id, { text: this.state.text });
     this.setState({ text: '' });
+    const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
+    replyDiv.style.display = 'none';
   }
 
   onChange(e) {
@@ -24,7 +26,7 @@ class Reply extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.formAction}>
+      <form className="reply-form" onSubmit={this.formAction}>
         <input type="text"
                value={this.state.text}
                name="text"

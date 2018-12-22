@@ -4,21 +4,44 @@ import { getComments, likeComment } from '../actions/commentActions';
 import Reply from './Reply';
 
 class Comment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleReply = this.toggleReply.bind(this);
+  }
+
   componentDidMount() {
-    // this.props.getComments(this.props.comment._id);
+    // if (this.props.getComments) {
+    //   this.props.getComments(this.props.comment._id);
+    // }
+    this.props.getComments(this.props.comment._id);
   }
 
   likeComment() {
+    // if (this.props.likeComment) {
+    //   this.props.likeComment(this.props.comment._id);
+    // }
     this.props.likeComment(this.props.comment._id);
+  }
+
+  toggleReply() {
+    const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
+    console.log(`reply-div-${this.props.comment._id}`);
+    if (replyDiv.style.display === 'block') {
+      replyDiv.style.display = 'none';
+    } else {
+      replyDiv.style.display = 'block';
+    }
   }
 
   render() {
     let comments = null;
     if (this.props.comments && this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
-        return <Comment comment={comment} />
+        return <Comment comment={comment} getComments={this.props.getComments} />
       })
     }
+    console.log(comments);
+
     let reply = null;
     if (this.props.comment.open) {
       reply = <Reply comment={this.props.comment} />
@@ -27,20 +50,25 @@ class Comment extends React.Component {
     return (
       <div className="comment">
         <div className="comment-author">
+        <img className="small-circle"
+             src={this.props.comment.avatar} />
           {this.props.comment.name}
         </div>
-        <div className="comment-text">
-          {this.props.comment.text}
+        <div className="comment-section">
+          <div className="comment-text">
+            {this.props.comment.text}
+          </div>
+          <div className="likes">
+            {this.props.comment.likes.length}
+            <img
+              className="like-image"
+              src={require('./like-icon.png')}
+              onClick={this.likeComment.bind(this)} />
+            <span onClick={this.toggleReply} className="reply">reply</span>
+          </div>
+          <span className="reply-div" id={`reply-div-${this.props.comment._id}`}>{reply}</span>
         </div>
-        <div className="likes">
-          {this.props.comment.likes.length}
-          <img
-            className="like-image"
-            src={require('./like-icon.png')}
-            onClick={this.likeComment.bind(this)} />
-          <span className="reply">reply</span>
-        </div>
-        {reply}<br />
+        <br />
         {comments}
       </div>
     )
@@ -53,7 +81,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getComments: parentId => dispatch(getComments(parentId)),
+  // getComments: parentId => dispatch(getComments(parentId)),
   likeComment: commentId => dispatch(likeComment(commentId))
 });
 

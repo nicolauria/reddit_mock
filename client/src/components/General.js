@@ -54,7 +54,7 @@ class General extends React.Component {
         </div>
         <div className="create-post">
         <h2>Add New Post</h2>
-          <form onSubmit={this.formAction}>
+          <form className="new-post" onSubmit={this.formAction}>
             <input type="text"
                    name="text"
                    value={this.state.text}

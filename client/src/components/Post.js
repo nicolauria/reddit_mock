@@ -5,15 +5,32 @@ import Comment from './Comment';
 import Reply from './Reply';
 
 class Post extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleReply = this.toggleReply.bind(this);
+  }
+
   componentWillMount() {
+    console.log(typeof this.props.post._id)
     this.props.getComments(this.props.post._id);
+  }
+
+  toggleReply() {
+    console.log('hit');
+    const replyDiv = document.getElementById(`reply-div-${this.props.post._id}`);
+    console.log(`reply-div-${this.props.post._id}`);
+    if (replyDiv.style.display === 'block') {
+      replyDiv.style.display = 'none';
+    } else {
+      replyDiv.style.display = 'block';
+    }
   }
 
   render() {
     let comments = null;
     if (this.props.comments[this.props.post._id]) {
       comments = this.props.comments[this.props.post._id].map(comment => {
-        return <Comment comment={comment} />
+        return <Comment comment={comment} getComments={this.props.getComments}/>
       })
     }
 
@@ -32,10 +49,11 @@ class Post extends React.Component {
           <div>
             <span className="post-author">{this.props.post.name}</span>
             <p className="post-body">{this.props.post.text}</p>
+            <span onClick={this.toggleReply} className="reply">reply</span>
+            <span className="reply-div post-reply-div" id={`reply-div-${this.props.post._id}`}>{reply}</span>
           </div>
         </div>
         <div className="comments">
-          {reply}<br />
           {comments}
         </div>
       </div>
