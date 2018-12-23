@@ -41,7 +41,6 @@ class General extends React.Component {
         )
       })
     }
-    console.log('render');
     return (
       <div>
         <div className="general">
