@@ -28,6 +28,9 @@ class NavBar extends React.Component {
     if (this.props.auth.user.id) {
       dashboardNav = (
         <ul className="navbar-nav ml-auto">
+          <li className="logout">
+            <Link className="general-page-link" to="/general">Posts</Link>
+          </li>
           <li className="logout" onClick={this.logout}>
             Logout
           </li>

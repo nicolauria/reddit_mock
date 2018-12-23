@@ -23,7 +23,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </div>
-            <Route exact path="/general" component={General} />
+            <Route exact path="/posts" component={General} />
             <Footer />
           </div>
         </Router>

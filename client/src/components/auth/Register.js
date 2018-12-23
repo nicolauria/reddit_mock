@@ -20,7 +20,7 @@ class Register extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.user.id) {
-      this.props.history.push('/general');
+      this.props.history.push('/posts');
     }
 
     if (nextProps.errors) {

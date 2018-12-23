@@ -53,6 +53,11 @@ img {
   align-items: center;
 }
 
+.general-page-link {
+  color: white;
+  margin-right: 25px;
+}
+
 .posts-container {
   width: 1000px;
 }
