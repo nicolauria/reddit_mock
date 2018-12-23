@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <HashRouter>
           <div className="App">
             <NavBar />
             <Route exact path="/" component={Landing} />
@@ -26,7 +26,7 @@ class App extends Component {
             <Route exact path="/posts" component={General} />
             <Footer />
           </div>
-        </Router>
+        </HashRouter>
       </Provider>
     );
   }
