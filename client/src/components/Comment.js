@@ -20,7 +20,7 @@ class Comment extends React.Component {
   }
 
   likeComment() {
-    if (this.props.likeComment) {
+    if (this.props.status) {
       this.props.likeComment(this.props.comment._id);
     }
   }
@@ -65,7 +65,7 @@ class Comment extends React.Component {
 
     if (this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
-        return <CommentTwo comment={comment} />
+        return <CommentTwo comment={comment} status={this.props.status} />
       });
     }
 
@@ -80,6 +80,12 @@ class Comment extends React.Component {
       editComment = <span className="edit-comment" onClick={this.toggleEdit.bind(this)}>edit</span>;
       removeComment = <span className="remove-comment" onClick={this.toggleRemove.bind(this)}>remove</span>;
     }
+
+    let commentOptions = null;
+    if (this.props.status) commentOptions = <span>
+      <span onClick={this.toggleReply} className="reply">reply</span>
+      {editComment}{removeComment}
+    </span>;
 
     return (
       <div className="comment">
@@ -98,8 +104,7 @@ class Comment extends React.Component {
               className="like-image"
               src={require('./like-icon.png')}
               onClick={this.likeComment.bind(this)} />
-            <span onClick={this.toggleReply} className="reply">reply</span>
-            {editComment}{removeComment}
+            {commentOptions}
           </div>
           <span className="reply-div" id={`reply-div-${this.props.comment._id}`}>{reply}</span>
           <span className="edit-div" id={`edit-div-${this.props.comment._id}`}>{<EditComment comment={this.props.comment}/>}</span>

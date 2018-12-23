@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const RECEIVE_ALL_POSTS = 'RECEIVE_ALL_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
+export const UPDATE_POST = 'UPDATE_POST';
 export const GET_ERRORS = 'GET_ERRORS';
 
 export const getAllPosts = () => dispatch => {
@@ -20,12 +21,21 @@ const receiveAllPosts = posts => ({
 });
 
 export const createPost = post => dispatch => {
-  console.log('hit action');
   axios.post('/api/posts', post)
     .then(post => dispatch(receivePost(post.data)))
 };
 
 const receivePost = post => ({
   type: RECEIVE_POST,
+  payload: post
+});
+
+export const closePost = post => dispatch => {
+  axios.put(`/api/posts/${post._id}`)
+    .then(post => dispatch(updatePost(post.data)))
+};
+
+const updatePost = post => ({
+  type: UPDATE_POST,
   payload: post
 });

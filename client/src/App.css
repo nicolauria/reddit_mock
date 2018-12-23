@@ -70,6 +70,15 @@ img {
   margin-bottom: 0px;
 }
 
+.close-post {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
 .comments {
   margin-top: 15px;
 }

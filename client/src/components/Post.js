@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { getComments } from '../actions/commentActions';
 import Comment from './Comment';
 import Reply from './Reply';
+import { closePost } from '../actions/postActions';
 
 class Post extends React.Component {
   constructor(props) {
     super(props);
     this.toggleReply = this.toggleReply.bind(this);
+    this.closePost = this.closePost.bind(this);
   }
 
   componentWillMount() {
@@ -23,21 +25,42 @@ class Post extends React.Component {
     }
   }
 
+  closePost() {
+    this.props.closePost(this.props.post);
+  }
+
   render() {
     let comments = null;
     if (this.props.comments[this.props.post._id]) {
       comments = this.props.comments[this.props.post._id].map(comment => {
-        return <Comment comment={comment} />
+        return <Comment comment={comment} status={this.props.post.open}/>
       })
     }
 
+    let closePost;
+    if (this.props.post.user.toString() === this.props.auth.user.id) {
+      if (this.props.post.open) {
+        closePost = <span className="close-post"
+          onClick={this.closePost}>close post</span>;
+      } else {
+        closePost = <span className="close-post"
+          onClick={this.closePost}>open post</span>;
+      }
+    }
+
+    let replyText;
     let reply = null;
+    let closedPost;
     if (this.props.post.open) {
+      replyText = <span onClick={this.toggleReply} className="reply">reply</span>;
       reply = <Reply comment={this.props.post} />
+    } else {
+      closedPost = <span>This post has been closed</span>;
     }
 
     return (
       <div className="post">
+      {closedPost}{closePost}
         <div className="post-content">
           <div>
             <img className="rounded-circle"
@@ -46,7 +69,7 @@ class Post extends React.Component {
           <div>
             <span className="post-author">{this.props.post.name}</span>
             <p className="post-body">{this.props.post.text}</p>
-            <span onClick={this.toggleReply} className="reply">reply</span>
+            {replyText}
             <span className="reply-div post-reply-div" id={`reply-div-${this.props.post._id}`}>{reply}</span>
           </div>
         </div>
@@ -59,11 +82,13 @@ class Post extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   comments: state.comments
 });
 
 const mapDispatchToProps = dispatch => ({
-  getComments: parentId => dispatch(getComments(parentId))
+  getComments: parentId => dispatch(getComments(parentId)),
+  closePost: post => dispatch(closePost(post))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);
