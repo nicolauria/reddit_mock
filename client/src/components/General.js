@@ -18,10 +18,6 @@ class General extends React.Component {
     this.props.getAllPosts();
   }
 
-  // componentWillReceiveProps() {
-  //   this.props.getAllPosts();
-  // }
-
   formAction(e) {
     e.preventDefault();
     const post = {
