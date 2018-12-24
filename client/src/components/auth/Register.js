@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { registerUser } from '../../util/session_api_util';

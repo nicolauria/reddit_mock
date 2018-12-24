@@ -32,7 +32,7 @@ class Comment extends React.Component {
     } else {
       replyDiv.style.display = 'block';
       const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
-      if (editDiv.style.display = 'block') editDiv.style.display = 'none';
+      if (editDiv.style.display === 'block') editDiv.style.display = 'none';
     }
   }
 
@@ -43,7 +43,7 @@ class Comment extends React.Component {
     } else {
       editDiv.style.display = 'block';
       const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
-      if (replyDiv.style.display = 'block') replyDiv.style.display = 'none';
+      if (replyDiv.style.display === 'block') replyDiv.style.display = 'none';
     }
   }
 
@@ -54,9 +54,9 @@ class Comment extends React.Component {
     } else {
       removeDiv.style.display = 'block';
       const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
-      if (replyDiv.style.display = 'block') replyDiv.style.display = 'none';
+      if (replyDiv.style.display === 'block') replyDiv.style.display = 'none';
       const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
-      if (editDiv.style.display = 'block') editDiv.style.display = 'none';
+      if (editDiv.style.display === 'block') editDiv.style.display = 'none';
     }
   }
 
@@ -66,7 +66,8 @@ class Comment extends React.Component {
     if (this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
         return <CommentTwo comment={comment}
-                           status={this.props.status} />
+                           status={this.props.status}
+                           key={comment._id} />
       });
     }
 
@@ -92,7 +93,8 @@ class Comment extends React.Component {
       <div className="comment">
         <div className="comment-author">
         <img className="small-circle"
-             src={this.props.comment.avatar} />
+             src={this.props.comment.avatar}
+             alt="" />
           {this.props.comment.name}
         </div>
         <div className="comment-section">
@@ -104,6 +106,7 @@ class Comment extends React.Component {
             <img
               className="like-image"
               src={require('../img/like-icon.png')}
+              alt=""
               onClick={this.likeComment.bind(this)} />
             {commentOptions}
           </div>

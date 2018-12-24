@@ -38,7 +38,8 @@ class Post extends React.Component {
     if (this.props.comments[this.props.post._id]) {
       comments = this.props.comments[this.props.post._id].map(comment => {
         return <Comment comment={comment}
-                        status={this.props.post.open} />
+                        status={this.props.post.open}
+                        key={comment._id}/>
       })
     }
 
@@ -69,7 +70,8 @@ class Post extends React.Component {
         <div className="post-content">
           <div>
             <img className="rounded-circle"
-                 src={this.props.post.avatar} />
+                 src={this.props.post.avatar}
+                 alt="" />
           </div>
           <div>
             <span className="post-author">{this.props.post.name}</span>

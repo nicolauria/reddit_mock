@@ -37,7 +37,7 @@ class General extends React.Component {
     if (this.props.posts.length > 0) {
       posts = this.props.posts.map(post => {
         return (
-          <Post post={post} />
+          <Post post={post} key={post._id}/>
         )
       })
     }
