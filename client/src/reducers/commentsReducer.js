@@ -34,7 +34,7 @@ export default function(state = {}, action) {
       });
       return {
         ...state,
-        [action.payload.parentId]: newState
+        [action.payload.parentId]: newState.sort(compare)
       }
     case REMOVE_COMMENT:
     let removeIndex;
@@ -49,5 +49,13 @@ export default function(state = {}, action) {
     }
     default:
       return state;
+  }
+}
+
+function compare(a, b) {
+  if (b.likes.length > a.likes.length) {
+    return 1;
+  } else {
+    return -1;
   }
 }

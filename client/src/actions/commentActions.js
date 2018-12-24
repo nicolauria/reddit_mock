@@ -22,7 +22,7 @@ export const likeComment = commentId => dispatch => {
   axios.post(`/api/comments/${commentId}/like`)
     .then(comment => {
       dispatch(updateComment(comment.data));
-    })
+    }).then(() => getComments());
 };
 
 export const editComment = comment => dispatch => {

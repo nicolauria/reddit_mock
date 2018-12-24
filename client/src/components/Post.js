@@ -29,6 +29,10 @@ class Post extends React.Component {
     this.props.closePost(this.props.post);
   }
 
+  commentLikes(user) {
+    this.state.likes.push(user);
+  }
+
   render() {
     let comments = null;
     if (this.props.comments[this.props.post._id]) {
