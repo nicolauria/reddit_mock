@@ -39,3 +39,9 @@ app.use('/api/comments', comments);
 const passport = require('passport');
 require('./config/passport')(passport);
 app.use(passport.initialize());
+
+// ping the app every 15 minutes
+var http = require("http");
+setInterval(function() {
+    http.get("https://reddit-mock2.herokuapp.com");
+}, 900000);
