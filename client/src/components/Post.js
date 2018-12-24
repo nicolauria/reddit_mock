@@ -35,8 +35,8 @@ class Post extends React.Component {
 
   render() {
     let comments = null;
-    if (this.props.comments[this.props.post._id]) {
-      comments = this.props.comments[this.props.post._id].map(comment => {
+    if (this.props.comments) {
+      comments = this.props.comments.map(comment => {
         return <Comment comment={comment}
                         status={this.props.post.open}
                         key={comment._id}/>
@@ -88,9 +88,9 @@ class Post extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   auth: state.auth,
-  comments: state.comments
+  comments: state.comments[ownProps.post._id]
 });
 
 const mapDispatchToProps = dispatch => ({
