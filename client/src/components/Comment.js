@@ -63,8 +63,8 @@ class Comment extends React.Component {
   render() {
     let comments = null;
 
-    if (this.props.comments[this.props.comment._id]) {
-      comments = this.props.comments[this.props.comment._id].map(comment => {
+    if (this.props.comments) {
+      comments = this.props.comments.map(comment => {
         return <CommentTwo comment={comment}
                            status={this.props.status}
                            key={comment._id} />
@@ -123,7 +123,7 @@ class Comment extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   auth: state.auth,
-  comments: state.comments,
+  comments: state.comments[ownProps.comment._id],
   likes: ownProps.comment.likes
 });
 
