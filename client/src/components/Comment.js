@@ -11,7 +11,7 @@ class Comment extends React.Component {
     super(props);
     this.toggleReply = this.toggleReply.bind(this);
     this.state = {
-      text: ''
+      text: '',
     }
   }
 
@@ -65,7 +65,8 @@ class Comment extends React.Component {
 
     if (this.props.comments[this.props.comment._id]) {
       comments = this.props.comments[this.props.comment._id].map(comment => {
-        return <CommentTwo comment={comment} status={this.props.status} />
+        return <CommentTwo comment={comment}
+                           status={this.props.status} />
       });
     }
 
@@ -102,7 +103,7 @@ class Comment extends React.Component {
             {this.props.comment.likes.length}
             <img
               className="like-image"
-              src={require('./like-icon.png')}
+              src={require('../img/like-icon.png')}
               onClick={this.likeComment.bind(this)} />
             {commentOptions}
           </div>

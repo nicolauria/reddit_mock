@@ -101,7 +101,7 @@ class CommentTwo extends React.Component {
             {this.props.comment.likes.length}
             <img
               className="like-image"
-              src={require('./like-icon.png')}
+              src={require('../img/like-icon.png')}
               onClick={this.likeComment.bind(this)} />
             {commentOptions}
           </div>

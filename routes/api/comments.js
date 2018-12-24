@@ -22,6 +22,7 @@ router.post('/:id', passport.authenticate('jwt', { session: false }), (req, res)
 // @access  Private
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Comment.find({ parentId: req.params.id })
+    .sort({ likes: -1 })
     .then(comments => res.json(comments))
     .catch(err => console.log(err));
 });
@@ -40,7 +41,6 @@ router.post('/:commentId/like', passport.authenticate('jwt', { session: false })
       comment.likes.push({ user: req.user.id })
     }
     comment.save().then(comment => {
-      console.log(comment);
       res.json(comment);
     })
   })

@@ -33,7 +33,8 @@ class Post extends React.Component {
     let comments = null;
     if (this.props.comments[this.props.post._id]) {
       comments = this.props.comments[this.props.post._id].map(comment => {
-        return <Comment comment={comment} status={this.props.post.open}/>
+        return <Comment comment={comment}
+                        status={this.props.post.open} />
       })
     }
 
