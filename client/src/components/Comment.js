@@ -16,6 +16,9 @@ class Comment extends React.Component {
   }
 
   // ajax call that fetchs all child comments and updates state.comments
+  // comments is an object with key value pairs. for example:
+  // { commentId: [childcomment1, childcomment2],
+  //   commentId: [childcomment1, childcomment2] }
   componentDidMount() {
     this.props.getComments(this.props.comment._id);
   }
