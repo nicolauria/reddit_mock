@@ -47,20 +47,33 @@ img {
   margin: 0 auto;
 }
 
-.general {
+.posts-page-link {
+  color: white;
+  margin-right: 25px;
+}
+
+/* Posts Page */
+.posts-page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.general-page-link {
-  color: white;
-  margin-right: 25px;
-}
-
 .posts-container {
   width: 1000px;
 }
+
+.create-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-post input {
+  margin-right: 15px;
+}
+
+/* Post Component */
 
 .post-content {
   display: flex;
@@ -75,6 +88,33 @@ img {
   margin-bottom: 0px;
 }
 
+.post-author {
+  font-weight: 700;
+  margin-left: 15px;
+}
+
+.post-reply-div input[type="text"] {
+  margin-left: 15px;
+}
+
+/* Comment Component */
+
+.comments {
+  margin-top: 15px;
+}
+
+.comments, .comment {
+  margin-left: 30px;
+}
+
+.comment-section {
+  margin-left: 40px;
+}
+
+.comment-author {
+  font-weight: 700;
+}
+
 .close-post {
   cursor: pointer;
   text-decoration: underline;
@@ -84,27 +124,11 @@ img {
   margin-bottom: 10px;
 }
 
-.comments {
-  margin-top: 15px;
-}
-
-.new-post input {
-  margin-right: 15px;
-}
-
-.comments, .comment {
-  margin-left: 30px;
-}
-
 .like-image {
   width: 23px;
   height: 23px;
   margin-left: 5px;
   cursor: pointer;
-}
-
-.comment-author {
-  font-weight: 700;
 }
 
 .rounded-circle {
@@ -117,15 +141,6 @@ img {
   height: 30px;
   border-radius: 50%;
   margin-right: 10px;
-}
-
-.comment-section {
-  margin-left: 41px;
-}
-
-.post-author {
-  font-weight: 700;
-  margin-left: 15px;
 }
 
 .reply {
@@ -168,12 +183,6 @@ img {
 .edit-div,
 .remove-div {
   display: none;
-}
-
-.create-post {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .reply-form,

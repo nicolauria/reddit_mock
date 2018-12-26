@@ -29,7 +29,7 @@ class NavBar extends React.Component {
       dashboardNav = (
         <ul className="navbar-nav ml-auto">
           <li className="logout">
-            <Link className="general-page-link" to="/posts">Posts</Link>
+            <Link className="posts-page-link" to="/posts">Posts</Link>
           </li>
           <li className="logout" onClick={this.logout}>
             Logout

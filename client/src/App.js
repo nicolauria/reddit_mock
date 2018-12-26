@@ -7,7 +7,7 @@ import NavBar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import General from './components/General';
+import PostsPage from './components/PostsPage';
 import Footer from './components/layout/Footer';
 import './App.css';
 
@@ -23,7 +23,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </div>
-            <Route exact path="/posts" component={General} />
+            <Route exact path="/posts" component={PostsPage} />
             <Footer />
           </div>
         </HashRouter>

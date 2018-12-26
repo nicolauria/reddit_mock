@@ -15,44 +15,52 @@ class Comment extends React.Component {
     }
   }
 
+  // ajax call that fetchs all child comments and updates state.comments
   componentDidMount() {
     this.props.getComments(this.props.comment._id);
   }
 
   likeComment() {
+    // only allow likes if post is open
     if (this.props.status) {
       this.props.likeComment(this.props.comment._id);
     }
   }
 
+  // display/hides reply input
   toggleReply() {
     const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
     if (replyDiv.style.display === 'block') {
       replyDiv.style.display = 'none';
     } else {
       replyDiv.style.display = 'block';
+      // hide editDiv if displayed
       const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
       if (editDiv.style.display === 'block') editDiv.style.display = 'none';
     }
   }
 
+  // displays/hides edit input
   toggleEdit() {
     const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
     if (editDiv.style.display === 'block') {
       editDiv.style.display = 'none';
     } else {
       editDiv.style.display = 'block';
+      // hide replyDiv if displayed
       const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
       if (replyDiv.style.display === 'block') replyDiv.style.display = 'none';
     }
   }
 
+  // displays/hides remove options
   toggleRemove() {
     const removeDiv = document.getElementById(`remove-div-${this.props.comment._id}`);
     if (removeDiv.style.display === 'block') {
       removeDiv.style.display = 'none';
     } else {
       removeDiv.style.display = 'block';
+      // hide any other currently displayed inputs
       const replyDiv = document.getElementById(`reply-div-${this.props.comment._id}`);
       if (replyDiv.style.display === 'block') replyDiv.style.display = 'none';
       const editDiv = document.getElementById(`edit-div-${this.props.comment._id}`);
@@ -61,29 +69,35 @@ class Comment extends React.Component {
   }
 
   render() {
-    let comments = null;
-
+    let comments;
+    // We need comments to display child comments however nesting
+    //  components in themselves causes unpredictable bugs in React.
+    // My work around was to create two idential comment components:
+    //  Comment and CommentTwo. Each component uses the other to display
+    //  child comments.
     if (this.props.comments) {
       comments = this.props.comments.map(comment => {
         return <CommentTwo comment={comment}
-                           status={this.props.status}
-                           key={comment._id} />
+          status={this.props.status} key={comment._id} />
       });
     }
 
-    let reply = null;
+    let reply;
     if (this.props.comment.open) {
       reply = <Reply comment={this.props.comment} />
     }
 
-    let editComment = null;
-    let removeComment = null;
+    let editComment;
+    let removeComment;
     if (this.props.auth.user.id === this.props.comment.user) {
-      editComment = <span className="edit-comment" onClick={this.toggleEdit.bind(this)}>edit</span>;
-      removeComment = <span className="remove-comment" onClick={this.toggleRemove.bind(this)}>remove</span>;
+      editComment = <span className="edit-comment"
+        onClick={this.toggleEdit.bind(this)}>edit</span>;
+      removeComment = <span className="remove-comment"
+        onClick={this.toggleRemove.bind(this)}>remove</span>;
     }
 
-    let commentOptions = null;
+    let commentOptions;
+    // display comment options if post is open
     if (this.props.status) commentOptions = <span>
       <span onClick={this.toggleReply} className="reply">reply</span>
       {editComment}{removeComment}
@@ -111,8 +125,10 @@ class Comment extends React.Component {
             {commentOptions}
           </div>
           <span className="reply-div" id={`reply-div-${this.props.comment._id}`}>{reply}</span>
-          <span className="edit-div" id={`edit-div-${this.props.comment._id}`}>{<EditComment comment={this.props.comment}/>}</span>
-          <span className="remove-div" id={`remove-div-${this.props.comment._id}`}>{<RemoveComment comment={this.props.comment}/>}</span>
+          <span className="edit-div" id={`edit-div-${this.props.comment._id}`}>
+            {<EditComment comment={this.props.comment}/>}</span>
+          <span className="remove-div" id={`remove-div-${this.props.comment._id}`}>
+            {<RemoveComment comment={this.props.comment}/>}</span>
         </div>
         <br />
         {comments}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getAllPosts, createPost } from '../actions/postActions';
 import Post from './Post';
 
-class General extends React.Component {
+class PostsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +43,7 @@ class General extends React.Component {
     }
     return (
       <div>
-        <div className="general">
+        <div className="posts-page">
           <div className="posts-container">
             {posts}
           </div>
@@ -74,4 +74,4 @@ const mapDispatchToProps = dispatch => ({
   createPost: post => dispatch(createPost(post))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(General);
+export default connect(mapStateToProps, mapDispatchToProps)(PostsPage);

@@ -16,6 +16,7 @@ class Post extends React.Component {
     this.props.getComments(this.props.post._id);
   }
 
+  // method used to hide/display reply input
   toggleReply() {
     const replyDiv = document.getElementById(`reply-div-${this.props.post._id}`);
     if (replyDiv.style.display === 'block') {
@@ -29,44 +30,40 @@ class Post extends React.Component {
     this.props.closePost(this.props.post);
   }
 
-  commentLikes(user) {
-    this.state.likes.push(user);
-  }
-
   render() {
-    let comments = null;
+    let comments;
     if (this.props.comments) {
       comments = this.props.comments.map(comment => {
         return <Comment comment={comment}
-                        status={this.props.post.open}
-                        key={comment._id}/>
+          status={this.props.post.open} key={comment._id}/>
       })
     }
 
-    let closePost;
+    let closePostToggle;
+    // allow post creator to open/close post
     if (this.props.post.user.toString() === this.props.auth.user.id) {
-      if (this.props.post.open) {
-        closePost = <span className="close-post"
-          onClick={this.closePost}>close post</span>;
-      } else {
-        closePost = <span className="close-post"
-          onClick={this.closePost}>open post</span>;
-      }
+      let text = this.props.post.open ? 'close post' : 'open post';
+      closePostToggle = <span className="close-post"
+        onClick={this.closePost}>{text}</span>;
     }
 
-    let replyText;
-    let reply = null;
-    let closedPost;
+    let closedPostText;
+    // display closed post text if post is closed
+    if (!this.props.post.open) {
+      closedPostText = <span>This post has been closed</span>;
+    }
+
+    let toggleReplyInput;
+    let replyInput;
+    // allow reply if post is open
     if (this.props.post.open) {
-      replyText = <span onClick={this.toggleReply} className="reply">reply</span>;
-      reply = <Reply comment={this.props.post} />
-    } else {
-      closedPost = <span>This post has been closed</span>;
+      toggleReplyInput = <span onClick={this.toggleReply} className="reply">reply</span>;
+      replyInput = <Reply comment={this.props.post} />
     }
 
     return (
       <div className="post">
-      {closedPost}{closePost}
+      {closedPostText}{closePostToggle}
         <div className="post-content">
           <div>
             <img className="rounded-circle"
@@ -76,8 +73,9 @@ class Post extends React.Component {
           <div>
             <span className="post-author">{this.props.post.name}</span>
             <p className="post-body">{this.props.post.text}</p>
-            {replyText}
-            <span className="reply-div post-reply-div" id={`reply-div-${this.props.post._id}`}>{reply}</span>
+            {toggleReplyInput}
+            <span className="reply-div post-reply-div"
+              id={`reply-div-${this.props.post._id}`}>{replyInput}</span>
           </div>
         </div>
         <div className="comments">
