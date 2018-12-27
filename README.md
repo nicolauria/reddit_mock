@@ -1,7 +1,7 @@
 # reddit_mock
 
 ## Express/MongoDB backend and React/Redux frontend
-registering or logging in takes you to the posts page (PostsPage.js)
+registering or logging in takes you to the posts page (PostsPage.js)<br />
 the posts page renders posts, posts render comments, comments render child comments
 
 ## Potential points of confusion
