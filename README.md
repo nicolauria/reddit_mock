@@ -2,7 +2,8 @@
 
 ## Express/MongoDB backend and React/Redux frontend
 registering or logging in takes you to the posts page (PostsPage.js)<br />
-the posts page renders posts, posts render comments, comments render child comments
+the posts page renders posts, posts render comments, comments render child comments<br />
+postsPage -> posts -> comments -> childComments
 
 ## Potential points of confusion
 
