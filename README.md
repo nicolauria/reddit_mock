@@ -18,8 +18,8 @@ are not currently being used but I realize now that a better implementation woul
 to populate my Post and Comment objects. I could then check to see if their child array is empty before making an ajax request.
 
 ### comments state
-the comments reducer returns one main 'comments' object
-inside this object comments and their children are listed as key value pairs
+the comments reducer returns one main 'comments' object<br />
+inside this object comments and their children are listed as key value pairs<br />
 eg:
 ```
 {
